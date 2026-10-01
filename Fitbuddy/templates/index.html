@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+
+{% block title %}
+FitBuddy | Personalized Fitness Plan
+{% endblock %}
+
+
+{% block content %}
+
+<section class="hero">
+
+	<div>
+
+		<p class="eyebrow">
+			AI FITNESS COACH
+		</p>
+
+		<h1>
+			Build a workout plan that actually fits you.
+		</h1>
+
+		<p class="hero-text">
+			Enter your basic profile and FitBuddy will generate
+			a structured 7-day plan plus a nutrition or recovery tip.
+		</p>
+
+	</div>
+
+</section>
+
+
+<section class="card form-card">
+
+	<h2>
+		Your profile
+	</h2>
+
+	<p class="muted">
+		Use a unique User ID if you want to find and revise
+		this plan later.
+	</p>
+
+
+	<form
+		action="/generate-workout"
+		method="post"
+		class="form-grid"
+	>
+
+		<label>
+
+			Name
+
+			<input
+				name="name"
+				type="text"
+				placeholder="e.g. Alex"
+				required
+				minlength="2"
+				maxlength="120"
+			>
+
+		</label>
+
+
+		<label>
+
+			User ID
+
+			<input
+				name="user_id"
+				type="text"
+				placeholder="e.g. alex01"
+				required
+				pattern="[A-Za-z0-9_\-]+"
+			>
+
+		</label>
+
+
+		<label>
+
+			Age
+
+			<input
+				name="age"
+				type="number"
+				min="13"
+				max="100"
+				required
+			>
+
+		</label>
+
+
+		<label>
+
+			Weight (kg)
+
+			<input
+				name="weight"
+				type="number"
+				min="20"
+				max="300"
+				step="0.1"
+				required
+			>
+
+		</label>
+
+
+		<label>
+
+			Fitness goal
+
+			<select
+				name="goal"
+				required
+			>
+
+				<option value="weight loss">
+					Weight loss
+				</option>
+
+				<option value="muscle gain">
+					Muscle gain
+				</option>
+
+				<option value="general wellness">
+					General wellness
+				</option>
+
+				<option value="flexibility">
+					Flexibility
+				</option>
+
+			</select>
+
+		</label>
+
+
+		<label>
+
+			Workout intensity
+
+			<select
+				name="intensity"
+				required
+			>
+
+				<option value="low">
+					Low
+				</option>
+
+				<option
+					value="medium"
+					selected
+				>
+					Medium
+				</option>
+
+				<option value="high">
+					High
+				</option>
+
+			</select>
+
+		</label>
+
+
+		<div class="full-width">
+
+			<button
+				class="button"
+				type="submit"
+			>
+				Generate 7-Day Plan
+			</button>
+
+		</div>
+
+	</form>
+
+</section>
+
+
+<section class="notice">
+
+	<strong>Important:</strong>
+
+	FitBuddy provides general fitness information,
+	not medical advice.
+
+	If you have an injury, medical condition,
+	or unusual symptoms, get guidance from a qualified
+	professional before exercising.
+
+</section>
+
+{% endblock %}

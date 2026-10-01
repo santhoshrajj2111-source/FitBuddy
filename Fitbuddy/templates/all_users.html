@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}
+FitBuddy | Admin
+{% endblock %}
+
+{% block content %}
+
+<section class="hero compact">
+
+  <p class="eyebrow">
+    ADMIN DASHBOARD
+  </p>
+
+  <h1>
+    All users and saved plans
+  </h1>
+
+  <p class="hero-text">
+    This page is protected by the ADMIN_KEY environment variable.
+  </p>
+
+</section>
+
+
+{% if not users %}
+
+<section class="card">
+
+  <p>
+    No users have been registered yet.
+  </p>
+
+</section>
+
+{% endif %}
+
+
+{% for user in users %}
+
+<section class="card admin-card">
+
+  <div class="admin-header">
+
+    <div>
+
+      <h2>
+
+        {{ user.name }}
+
+        <span class="pill">
+          {{ user.user_id }}
+        </span>
+
+      </h2>
+
+
+      <p class="muted">
+
+        {{ user.age }} years
+
+        ·
+
+        {{ user.weight }} kg
+
+        ·
+
+        {{ user.goal|title }}
+
+        ·
+
+        {{ user.intensity|title }}
+
+      </p>
+
+    </div>
+
+
+    <form
+      action="/admin/delete/{{ user.user_id }}"
+      method="post"
+      onsubmit="return confirm('Delete this user and plan?');"
+    >
+
+      <input
+        type="hidden"
+        name="key"
+        value="{{ key }}"
+      >
+
+      <button
+        class="danger"
+        type="submit"
+      >
+        Delete
+      </button>
+
+    </form>
+
+  </div>
+
+
+  {% if user.plan %}
+
+  <details>
+
+    <summary>
+      Original plan
+    </summary>
+
+    <pre class="plan">
+{{ user.plan.original_plan }}
+    </pre>
+
+  </details>
+
+
+  {% if user.plan.updated_plan %}
+
+  <details open>
+
+    <summary>
+      Updated plan
+    </summary>
+
+    <pre class="plan">
+{{ user.plan.updated_plan }}
+    </pre>
+
+  </details>
+
+
+  <p>
+
+    <strong>
+      Last feedback:
+    </strong>
+
+    {{ user.plan.last_feedback }}
+
+  </p>
+
+  {% endif %}
+
+
+  <p>
+
+    <strong>
+      Nutrition tip:
+    </strong>
+
+    {{ user.plan.nutrition_tip }}
+
+  </p>
+
+  {% endif %}
+
+</section>
+
+{% endfor %}
+
+{% endblock %}
